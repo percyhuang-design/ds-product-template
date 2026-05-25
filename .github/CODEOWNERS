@@ -1,0 +1,6 @@
+# Default reviewer for all changes
+* @ajenchen
+
+# Future: when team members onboard, add per-app owners
+# /apps/order-dashboard/ @wendy @teammate2
+# /apps/analytics-portal/ @teammate3

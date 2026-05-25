@@ -1,0 +1,38 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      app:
+        description: 'App to deploy(e.g. order-dashboard). Leave blank to deploy all changed apps.'
+        required: false
+        type: string
+
+# Deploy is per-app. Add new app: scripts/create-app.mjs → configure Netlify site → add secret pair NETLIFY_SITE_ID_<APPNAME> + NETLIFY_AUTH_TOKEN_<APPNAME>.
+# This scaffold ships a generic per-app deploy step — extend with matrix when 2nd app lands.
+
+jobs:
+  deploy-template:
+    if: github.event_name == 'workflow_dispatch' && (inputs.app == '_template' || inputs.app == '')
+    name: Deploy _template(canary)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: cd apps/_template && npm run build
+      - name: Deploy to Netlify(if secrets set)
+        if: ${{ secrets.NETLIFY_SITE_ID_TEMPLATE != '' && secrets.NETLIFY_AUTH_TOKEN != '' }}
+        uses: nwtgck/actions-netlify@v3
+        with:
+          publish-dir: apps/_template/dist
+          production-deploy: ${{ github.ref == 'refs/heads/main' }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID_TEMPLATE }}
