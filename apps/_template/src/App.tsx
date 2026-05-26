@@ -1,10 +1,18 @@
-// 2026-05-26 完整 AppShell 範例 — per user 「預設應該是 app shells 的範例」directive
-// Fork user 複製本檔為新 product 起點,替換 sidebar nav / page content 為真實業務。
+// 完整 AppShell 範例 — 對齊 DS canonical `sidebar.stories.tsx#IconCollapse` baseline
+// (per `.claude/rules/story-rules.md`「Production-grade composition fidelity」+ M23(d) nearest-same-purpose canonical wins)
+//
+// @story-baseline: @qijenchen/design-system/components/Sidebar/sidebar.stories.tsx#IconCollapse
 //
 // SSOT 鐵律:
-//   - Consumer 只 import `@qijenchen/design-system` exports
+//   - Consumer 只 import `@qijenchen/design-system` public exports
 //   - 禁修改 DS source(走 fork DS repo)
 //   - 視覺 token 透過 DS 提供的 `@qijenchen/design-system/styles/tokens` 載入
+//
+// Fork user 替換步驟:
+//   1. 替換 NAV array(新 product 的真實導覽項)
+//   2. 替換 WorkspaceBrand 內 workspace 名 / Avatar 顏色
+//   3. 替換 DashboardPage 為真實業務 widgets(DataTable / Chart / Card 等 DS 元件)
+//   4. 替換 PageHeader rightSlot 的 primary action(若有)
 
 import { useState } from 'react'
 import {
@@ -12,13 +20,15 @@ import {
   SidebarProvider,
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarTrigger,
+  Avatar,
   Button,
 } from '@qijenchen/design-system'
 import { LayoutDashboard, Users, Settings, FileText, BarChart3 } from 'lucide-react'
@@ -31,22 +41,24 @@ const NAV = [
   { id: 'settings', label: 'Settings', icon: Settings },
 ] as const
 
+// ── Sidebar(對齊 DS IconCollapse baseline:collapsible="icon" + WorkspaceBrand + footer)──
 function AppSidebar() {
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon">
       <SidebarHeader>
-        <div className="px-3 py-2 text-body font-medium">Acme Product</div>
+        <div className="flex items-center gap-2 min-w-0 group-data-[collapsible=icon]:justify-center">
+          <Avatar alt="Acme" shape="square" color="blue" solid />
+          <span className="text-body-lg font-medium truncate group-data-[collapsible=icon]:hidden">Acme Product</span>
+        </div>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Workspace</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {NAV.map(({ id, label, icon: Icon }) => (
+              {NAV.map(({ id, label, icon }) => (
                 <SidebarMenuItem key={id}>
-                  <SidebarMenuButton id={id}>
-                    <Icon className="size-4" />
-                    <span>{label}</span>
+                  <SidebarMenuButton id={id} startIcon={icon} tooltip={label}>
+                    {label}
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -54,16 +66,29 @@ function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton id="user-profile">
+              <Avatar alt="Current user" color="blue" />
+              <span className="truncate">當前使用者</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   )
 }
 
-function PageHeader({ title }: { title: string }) {
+// ── PageHeader(對齊 DS canonical chrome-header pattern:fixed --chrome-header-height + SidebarTrigger + title)──
+// SidebarTrigger 必有(primary-sidebar mode 的 menu toggle 入口,⌘B keyboard shortcut)
+function PageHeader({ title, rightSlot }: { title: string; rightSlot?: React.ReactNode }) {
   return (
-    <div className="flex items-center justify-between px-[var(--layout-space-loose)] h-[var(--chrome-header-height)] border-b border-divider">
-      <h1 className="text-h4">{title}</h1>
-      <Button variant="primary" size="md">New customer</Button>
-    </div>
+    <header className="flex items-center gap-2 h-[var(--chrome-header-height)] px-[var(--layout-space-loose)] bg-surface border-b border-divider">
+      <SidebarTrigger />
+      <h1 className="text-body-lg font-medium flex-1 truncate">{title}</h1>
+      {rightSlot}
+    </header>
   )
 }
 
@@ -97,7 +122,12 @@ export default function App() {
       <AppShell
         layout="primary-sidebar"
         sidebar={<AppSidebar />}
-        header={<PageHeader title={current.label} />}
+        header={
+          <PageHeader
+            title={current.label}
+            rightSlot={<Button variant="primary" size="md">New customer</Button>}
+          />
+        }
       >
         <DashboardPage />
       </AppShell>
