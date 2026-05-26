@@ -18,8 +18,8 @@
     "lint:imports": "node scripts/lint-ds-internal-imports.mjs"
   },
   "dependencies": {
-    "@qijenchen/design-system": "^0.1.0-beta.16",
-    "@qijenchen/storybook-config": "^0.1.0-beta.16",
+    "@qijenchen/design-system": "^0.1.0-beta.20",
+    "@qijenchen/storybook-config": "^0.1.0-beta.20",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
