@@ -28,6 +28,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarTrigger,
+  TooltipProvider,
   Avatar,
   ItemAvatar,
   Button,
@@ -122,20 +123,23 @@ function DashboardPage() {
 export default function App() {
   const [activeId, setActiveId] = useState<string>('dashboard')
   const current = NAV.find((n) => n.id === activeId) ?? NAV[0]
+  // TooltipProvider self-wrap(Storybook story render 跳過 main.tsx → App 必自帶 TooltipProvider context)
   return (
-    <SidebarProvider activeId={activeId} onActiveChange={setActiveId}>
-      <AppShell
-        layout="primary-sidebar"
-        sidebar={<AppSidebar />}
-        header={
-          <PageHeader
-            title={current.label}
-            rightSlot={<Button variant="primary" size="md">New customer</Button>}
-          />
-        }
-      >
-        <DashboardPage />
-      </AppShell>
-    </SidebarProvider>
+    <TooltipProvider delayDuration={500} skipDelayDuration={300}>
+      <SidebarProvider activeId={activeId} onActiveChange={setActiveId}>
+        <AppShell
+          layout="primary-sidebar"
+          sidebar={<AppSidebar />}
+          header={
+            <PageHeader
+              title={current.label}
+              rightSlot={<Button variant="primary" size="md">New customer</Button>}
+            />
+          }
+        >
+          <DashboardPage />
+        </AppShell>
+      </SidebarProvider>
+    </TooltipProvider>
   )
 }
