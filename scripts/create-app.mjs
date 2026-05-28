@@ -95,6 +95,16 @@ function patchStoryTitles(dir) {
 }
 patchStoryTitles(join(dest, 'src'))
 
+// Verify critical files copied(若 template 改名 / 重構 → 防 silent miss)
+const REQUIRED = ['package.json', 'tsconfig.json', 'vite.config.ts', 'index.html', 'src']
+for (const f of REQUIRED) {
+  if (!existsSync(join(dest, f))) {
+    console.error(`✗ Missing required file after copy: ${f}`)
+    console.error(`  Likely template restructure — fix create-app.mjs REQUIRED list`)
+    process.exit(1)
+  }
+}
+
 // Safety net:rm dist + tsbuildinfo if any slipped past filter
 for (const cache of ['dist', 'tsconfig.tsbuildinfo', 'storybook-static']) {
   const cachePath = join(dest, cache)
