@@ -2,7 +2,7 @@
 # Per user 「為何要設這個 secret?」challenge — DS repo 就沒用 secret,直接 Netlify 連 repo auto-build。
 #
 # Fork-and-go 流程(painless,無需 GitHub secret):
-#   1. Netlify Dashboard → New site → 連 fork 後的 product-workspace repo
+#   1. Netlify Dashboard → New site → 連 fork 後的 ds-product-template repo
 #   2. Netlify 自動讀本 file → build storybook-static → deploy
 #   3. 完成。每次 push main → Netlify auto rebuild。
 #

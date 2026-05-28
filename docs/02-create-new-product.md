@@ -49,7 +49,7 @@ export default function App() {
 
 ## Deploy(per-app Netlify)
 
-1. 開 Netlify → Add new site → Import from Git → `ajenchen/product-workspace`
+1. 開 Netlify → Add new site → Import from Git → `ajenchen/ds-product-template`
 2. Build settings:
    - Base directory: `apps/<name>`
    - Build command: `npm run build`

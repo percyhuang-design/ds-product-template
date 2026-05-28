@@ -13,8 +13,8 @@
 
 ```bash
 # 1. Clone
-git clone git@github.com:ajenchen/product-workspace.git
-cd product-workspace
+git clone git@github.com:ajenchen/ds-product-template.git
+cd ds-product-template
 
 # 2. Install workspace deps(pulls @qijenchen/design-system@beta + storybook-config@beta)
 npm install --legacy-peer-deps

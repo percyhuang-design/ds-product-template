@@ -33,6 +33,6 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: A11y audit consumer apps(WCAG 2 A + AA)
-        # Phase 5 加 — DS repo 跑 npm run a11y:check on storybook;product-workspace
+        # Phase 5 加 — DS repo 跑 npm run a11y:check on storybook;ds-product-template
         # 跑 audit-consumer-a11y.mjs on apps/*/dist。對等 DS audit 嚴謹度。
         run: node scripts/audit-consumer-a11y.mjs

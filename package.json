@@ -2,7 +2,7 @@
   "name": "ds-product-template",
   "private": true,
   "version": "0.0.0",
-  "description": "GitHub Template Repository \u2014 fork-and-go monorepo for product team apps consuming @qijenchen/design-system. Use 'Use this template' button OR clone + npm run create-app <product-name>.",
+  "description": "GitHub Template Repository — fork-and-go monorepo for product team apps consuming @qijenchen/design-system. Use 'Use this template' button OR clone + npm run create-app <product-name>.",
   "type": "module",
   "workspaces": [
     "apps/*",
@@ -19,11 +19,11 @@
     "setup:netlify": "node scripts/setup-netlify-access.mjs",
     "deploy-url": "node scripts/deploy-url.mjs",
     "postinstall": "node scripts/check-plugin-installed.mjs",
-    "sync-all": "npm update @qijenchen/design-system @qijenchen/storybook-config --legacy-peer-deps && claude plugin marketplace update qijenchen-ds 2>/dev/null && claude plugin update design-system@qijenchen-ds 2>/dev/null && echo \"\u2713 npm + plugin updated. Restart Claude Code session to apply plugin changes.\""
+    "sync-all": "npm update @qijenchen/design-system @qijenchen/storybook-config --legacy-peer-deps && claude plugin marketplace update qijenchen-ds 2>/dev/null && claude plugin update design-system@qijenchen-ds 2>/dev/null && echo \"✓ npm + plugin updated. Restart Claude Code session to apply plugin changes.\""
   },
   "dependencies": {
-    "@qijenchen/design-system": "file:../../../Users/chenqiren/Library/CloudStorage/GoogleDrive-qijenchen@gmail.com/\u6211\u7684\u96f2\u7aef\u786c\u789f/my-project/packages/design-system",
-    "@qijenchen/storybook-config": "^0.1.0-beta.23",
+    "@qijenchen/design-system": "^0.1.0-beta.30",
+    "@qijenchen/storybook-config": "^0.1.0-beta.30",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

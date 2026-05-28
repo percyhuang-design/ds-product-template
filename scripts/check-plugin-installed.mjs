@@ -48,7 +48,7 @@ ${YELLOW}本 monorepo 消費 @qijenchen/design-system,但 Claude Code DS governa
 ${BOLD}沒裝後果(anchor case 2026-05-26):${RESET}
   - AI 寫 App.tsx 憑記憶寫 simplified mock(漏 SidebarTrigger / collapsible / startIcon)
   - DS governance hooks(M29 anchor preflight / SSOT propagation 等,40+ 個)全部不 fire
-  - product-workspace 視覺直接跑版,fork user 抓不到 root cause
+  - ds-product-template 視覺直接跑版,fork user 抓不到 root cause
 
 ${BOLD}修法(用 Claude Code 開本 repo 後第一件事):${RESET}
   1. ${YELLOW}/plugin marketplace add github:ajenchen/design-system${RESET}

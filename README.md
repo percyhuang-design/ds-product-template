@@ -84,7 +84,7 @@ Session_start hook `check_plugin_freshness.sh` 偵測 marketplace stale → prom
 ## Layout
 
 ```
-product-workspace/
+ds-product-template/
 ├── apps/                       ← Product apps (each is independent Vite + React)
 │   └── template/              ← Copy this via `npm run create-app <name>`
 │       ├── src/
@@ -138,7 +138,7 @@ challenge「為何要設這個 secret?」→ 對齊 DS repo pattern(netlify.toml
 ### Storybook deploy(無需 GitHub secret)
 
 **Step 1 — Connect Netlify**:
-1. Netlify Dashboard → **New site** → 連 fork 後的 `product-workspace` repo
+1. Netlify Dashboard → **New site** → 連 fork 後的 `ds-product-template` repo
 2. Netlify 自動讀根目錄 `netlify.toml` → build `storybook-static` → deploy
 3. 每次 push main → Netlify auto rebuild。Per-branch preview 自動啟用。
 

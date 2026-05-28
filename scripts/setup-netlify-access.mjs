@@ -79,7 +79,7 @@ console.log('')
 // Step 3: Link site(2026-05-26 auto-create per user verbatim「目前每個斷點都無法自動處理?」)
 if (!existsSync('.netlify/state.json')) {
   // Default: 自動 create new site with predictable name from package.json + GitHub user
-  const repoName = JSON.parse(readFileSync('package.json', 'utf8')).name || 'product-workspace'
+  const repoName = JSON.parse(readFileSync('package.json', 'utf8')).name || 'ds-product-template'
   const ghUser = shOut('gh api user --jq .login') || 'user'
   const autoSiteName = `${ghUser}-${repoName}`.toLowerCase().replace(/[^a-z0-9-]/g, '-')
   console.log(`▶ Auto-create Netlify site "${autoSiteName}" + link this repo...`)

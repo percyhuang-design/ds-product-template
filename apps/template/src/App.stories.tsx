@@ -13,7 +13,7 @@ const meta: Meta<typeof App> = {
     docs: {
       description: {
         component:
-          '`template` 是 fork product-workspace 後的起始 app skeleton,**用 DS AppShell + Sidebar + PageHeader 完整 layout**。\n\n' +
+          '`template` 是 fork ds-product-template 後的起始 app skeleton,**用 DS AppShell + Sidebar + PageHeader 完整 layout**。\n\n' +
           'Consumer 替換 `App.tsx` 內的:\n' +
           '- `NAV` array(sidebar navigation 項目)\n' +
           '- `PageHeader` content(business-specific 標題 / actions)\n' +
